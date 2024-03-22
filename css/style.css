@@ -18,3 +18,11 @@ body {
 .topnav:hover .img-menu{
   opacity: 0.5;
 }
+.clock {
+  position: absolute;
+  float: right;
+  padding: 15px 16px;
+  color: #aaaaaa;
+  font-size: 30px;
+  letter-spacing: 2px;
+}
