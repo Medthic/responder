@@ -2,6 +2,8 @@
     .topnav {
         background-color: #333; /* Background color */
         overflow: hidden; /* Ensures that the content does not overflow */
+        width: 100%;
+        
       }
   
       .topnav a {
