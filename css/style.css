@@ -1,0 +1,19 @@
+
+    .topnav {
+        background-color: #333; /* Background color */
+        overflow: hidden; /* Ensures that the content does not overflow */
+      }
+  
+      .topnav a {
+        float: left; /* Float the links to the left */
+        display: block; /* Display links as block elements */
+        color: #f2f2f2; /* Text color */
+        text-align: center; /* Center-align text */
+        padding: 14px 16px; /* Add padding */
+        text-decoration: none; /* Remove underline */
+      }
+  
+      .topnav a:hover {
+        background-color: #ddd; /* Change background color on hover */
+        color: black; /* Change text color on hover */
+      }
