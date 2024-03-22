@@ -14,3 +14,6 @@ body {
   width: 100%;
   height: 75px;
 }
+.topnav:hover .img-menu{
+  opacity: 0.3;
+}
