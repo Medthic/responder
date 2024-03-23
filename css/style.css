@@ -4,30 +4,40 @@ body {
   background-color: #1e1e1e;
 }
 
+.topnav {
+  background-color: #2d2d30;
+  width: 100%;
+  height: 85px;
+  display: flex; 
+  justify-content: space-between;
+  align-items: center;
+}
 .img-menu {
   max-width: 50%;
   max-height: 50%;
-  padding: 20px 20px;
+  padding: 20px 20px ;
   float: right;
+  display: block;
 }
 
-.topnav {
-  background-color: #2d2d30;
-  overflow: hidden;
-  width: 100%;
-  height: 75px;
-}
-
-.topnav:hover .img-menu {
+.img-menu:hover {
   opacity: 0.5;
 }
 
 .clock {
-  position: absolute;
-  float: right;
   padding: 20px 20px;
   color: #aaaaaa;
   font-size: 35px;
   letter-spacing: 3px;
   font-family: Impact;
 }
+
+.img-logo {
+  width: auto;
+  height: 200%;
+  display: block;
+  margin: 0 auto;
+  padding-top: 90px;
+  filter: drop-shadow(0 0 0.10rem #aaaaaa);
+}
+
