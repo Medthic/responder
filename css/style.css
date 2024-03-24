@@ -4,6 +4,11 @@ body {
   background-color: #1e1e1e;
 }
 
+ul {
+  font-family: sans-serif;
+  font-weight: bold;
+}
+
 .topnav {
   background-color: #2d2d30;
   width: 100%;
@@ -50,15 +55,33 @@ body {
 }
 
 .engine {
-  width: calc(20% - 20px); /* Adjust as needed */
+  width: calc(25% - 20px);
   margin-bottom: 20px;
-  margin-top: 100px;
+  margin-top: 120px;
+  margin-left: 40px;
   background-color: #aaaaaa;
-  padding: 20px;
+  padding: 10px;
   box-sizing: border-box;
   border-radius: 8px;
 }
 
-.ul{
-  font-family: sans-serif;
+.member {
+  width: calc(100% );
+  margin-top: 10px;
+  background-color: #2d2d30;
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 10px;
+}
+
+#scrolling-message {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+  white-space: nowrap; 
+  overflow: hidden; 
 }
