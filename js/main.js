@@ -17,3 +17,31 @@ function showTime() {
 }
 
 showTime();
+
+function getWeatherForecast() {
+    fetch('https://api.weather.gov/gridpoints/PBZ/85,67/forecast')
+        .then(response => response.json())
+        .then(data => {
+            const tonightForecast = data.properties.periods.find(period => period.name === 'Overnight');
+            if (tonightForecast) {
+                document.getElementById('temperature').textContent = tonightForecast.temperature + '°F';
+
+                const temperature = parseInt(tonightForecast.temperature);
+                if (temperature < 32) {
+                    document.getElementById('temperature').style.color = '#007acc'; // Cold temperature
+                } else if (temperature > 80) {
+                    document.getElementById('temperature').style.color = '#ff7858'; // Hot temperature
+                } else {
+                    document.getElementById('temperature').style.color = '#adbcc1'; // Moderate temperature
+                }
+            } else {
+                document.getElementById('temperature').textContent = 'Failed to fetch weather data.';
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching weather data:', error);
+            document.getElementById('temperature').textContent = 'Failed to fetch weather data.';
+        });
+}
+
+window.onload = getWeatherForecast;
