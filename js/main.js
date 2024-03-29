@@ -1,11 +1,3 @@
-import {
-  onGetTasks,
-  saveTask,
-  deleteTask,
-  getTask,
-  updateTask,
-  getTasks,
-} from "./firebase.js"
 
 function showTime() {
   const newLocal = new Date()
@@ -25,7 +17,7 @@ function showTime() {
   setTimeout(showTime, 1000)
 }
 
-showTime()
+showTime();
 
 function getWeatherForecast() {
   fetch("https://api.weather.gov/gridpoints/PBZ/85,67/forecast")
@@ -58,4 +50,4 @@ function getWeatherForecast() {
     })
 }
 
-window.onload = getWeatherForecast
+window.onload = getWeatherForecast;
