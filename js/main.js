@@ -1,7 +1,11 @@
-import { initializeApp } from "@firebase/app"
-import { getDatabase } from "@firebase/database"
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js"
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-analytics.js"
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
-// Initialize Firebase
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyCXkNsf5a6xdNNV3KHuxR8sFwBjMwWnQZo",
   authDomain: "responder-gg.firebaseapp.com",
@@ -14,37 +18,11 @@ const firebaseConfig = {
 }
 
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig)
+const app = initializeApp(firebaseConfig)
+const analytics = getAnalytics(app)
 
-// Call function to handle form submission on page load
-handleFormSubmission()
-
-// Function to handle form submission
-function handleFormSubmission() {
-  // Get form data
-  var name = document.getElementById("name").value
-  var rank = document.getElementById("rank").value
-
-  // Push data to Firebase
-  var database = firebase.database()
-  var usersRef = database.ref("users")
-  var newUserRef = usersRef.push()
-  newUserRef
-    .set({
-      name: name,
-      rank: rank,
-      driverStatus: "yes",
-    })
-    .then(function () {
-      console.log("Data successfully written!")
-      // Clear form fields after successful submission
-      document.getElementById("name").value = ""
-      document.getElementById("rank").value = ""
-    })
-    .catch(function (error) {
-      console.error("Error writing data: ", error)
-    })
-}
+console.log(app)
+/////////////////////////////////////////////////////////////////////////////////////////
 
 function showTime() {
   const newLocal = new Date()
