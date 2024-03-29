@@ -3,6 +3,7 @@ import {
   getFirestore,
   collection,
   addDoc,
+  getDocs,
 } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js"
 
 //...
@@ -21,3 +22,24 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig)
 const db = getFirestore(app)
+
+// Function to fetch users from Firestore
+async function fetchUsers() {
+  const userSelect = document.getElementById("userSelect")
+
+  try {
+    const querySnapshot = await getDocs(collection(db, "users"))
+    querySnapshot.forEach((doc) => {
+      const userData = doc.data()
+      const option = document.createElement("option")
+      option.value = doc.id // Assuming user id is used as value
+      option.textContent = userData.name // Assuming name field is present
+      userSelect.appendChild(option)
+    })
+  } catch (error) {
+    console.error("Error fetching users: ", error)
+  }
+}
+
+// Call fetchUsers when the page loads
+fetchUsers()
