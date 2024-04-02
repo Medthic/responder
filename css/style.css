@@ -81,7 +81,7 @@ ul {
   border-radius: 10px;
 }
 
-.member {
+select {
   width: calc(100%);
   background-color: #2d2d30;
   box-sizing: border-box;
@@ -91,6 +91,10 @@ ul {
   color: #aaaaaa;
   padding: 10px;
   font-weight: bold;
+}
+
+option {
+  color: #aaaaaa;
 }
 
 #scrolling-message {
