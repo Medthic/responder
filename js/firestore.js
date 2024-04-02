@@ -4,6 +4,8 @@ import {
   collection,
   addDoc,
   getDocs,
+  setDoc,
+  onSnapshot,
 } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js"
 
 //...
@@ -24,8 +26,8 @@ const app = initializeApp(firebaseConfig)
 const db = getFirestore(app)
 
 // Function to fetch users from Firestore
-async function fetchUsers() {
-  const userSelect = document.getElementById("userSelect")
+async function fetchUsers(containerId) {
+  const userSelect = document.getElementById(containerId)
 
   try {
     const querySnapshot = await getDocs(collection(db, "users"))
@@ -36,10 +38,24 @@ async function fetchUsers() {
       option.textContent = userData.name // Assuming name field is present
       userSelect.appendChild(option)
     })
+
+    // Add change event listener to save selection to the container
+    selectElement.onSnapshot("change", function (event) {
+      const selectedUserId = event.target.value
+      userSelections[containerId] = selectedUserId
+      console.log(
+        "Selection in container " + containerId + ": " + selectedUserId
+      )
+    })
   } catch (error) {
     console.error("Error fetching users: ", error)
   }
 }
 
 // Call fetchUsers when the page loads
-fetchUsers()
+fetchUsers("eng-chauffeur")
+fetchUsers("eng-officer")
+fetchUsers("eng-nozzle")
+fetchUsers("eng-layout")
+fetchUsers("eng-forcible")
+fetchUsers("eng-backup")
