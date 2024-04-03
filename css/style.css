@@ -5,10 +5,11 @@ body {
 }
 
 ul {
-  margin: 12px;
+  margin: 8px;
   margin-left: -25px;
-  font-family: sans-serif;
-  font-weight: bold;
+  font-family: "Bebas-Neue", sans-serif;
+  font-size: 15pt;
+  letter-spacing: 2px;
 }
 
 .topnav {
@@ -76,10 +77,12 @@ select {
   box-sizing: border-box;
   border-radius: 5px;
   text-decoration: none;
-  font-family: sans-serif;
+  font-family: "Bebas", sans-serif;
+  font-size: 14pt;
+  letter-spacing: 3px;
   color: #aaaaaa;
-  padding: 10px;
-  font-weight: bold;
+  padding: 8px;
+  text-align: center;
 }
 
 option {
@@ -93,10 +96,12 @@ option {
   width: 100%;
   background-color: #333;
   color: #fff;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  padding-top: 2px;
   white-space: nowrap;
   overflow: hidden;
+  font-family: "Bebas", sans-serif;
+  font-size: 14pt;
+  letter-spacing: 3px;
 }
 
 .containerheader {
@@ -111,5 +116,15 @@ option {
 
 @font-face {
   font-family: "Carbondale";
-  src: url("/fonts/LHFcarbondale2.otf") format("OpenType");
+  src: url("/fonts/carbondale.otf") format("OpenType");
+}
+
+@font-face {
+  font-family: "Bebas-Neue";
+  src: url("/fonts/BebasNeue.otf") format("OpenType");
+}
+
+@font-face {
+  font-family: "Bebas";
+  src: url("/fonts/Bebas.otf") format("OpenType");
 }
