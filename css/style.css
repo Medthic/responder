@@ -21,7 +21,7 @@ ul {
 }
 
 .clock {
-  padding: 20px 20px;
+  padding: 20px;
   color: #aaaaaa;
   font-size: 3vmax;
   letter-spacing: 3px;
@@ -33,7 +33,7 @@ ul {
 .img-menu {
   width: auto;
   height: 2vmax;
-  padding: 20px 20px;
+  padding: 20px;
   display: block;
 }
 
@@ -57,18 +57,7 @@ ul {
   justify-content: center;
 }
 
-.engine {
-  width: calc(400px - 20px);
-  margin-bottom: 60px;
-  margin-top: 80px;
-  margin-left: 40px;
-  margin-right: 40px;
-  background-color: #aaaaaa;
-  padding: 10px;
-  box-sizing: border-box;
-  border-radius: 10px;
-}
-
+.engine,
 .truck {
   width: calc(400px - 20px);
   margin-bottom: 60px;
@@ -108,4 +97,19 @@ option {
   padding-bottom: 5px;
   white-space: nowrap;
   overflow: hidden;
+}
+
+.containerheader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Carbondale", sans-serif;
+  font-size: 40pt;
+  letter-spacing: 3px;
+  margin-top: 10px;
+}
+
+@font-face {
+  font-family: "Carbondale";
+  src: url("/fonts/LHFcarbondale2.otf") format("OpenType");
 }
