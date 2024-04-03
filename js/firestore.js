@@ -2,13 +2,11 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/fireba
 import {
   getFirestore,
   collection,
-  addDoc,
   getDocs,
+  getDoc,
+  doc,
   setDoc,
-  onSnapshot,
 } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js"
-
-//...
 
 const firebaseConfig = {
   apiKey: "AIzaSyCXkNsf5a6xdNNV3KHuxR8sFwBjMwWnQZo",
@@ -29,6 +27,14 @@ const db = getFirestore(app)
 async function fetchUsers(containerId) {
   const userSelect = document.getElementById(containerId)
 
+  // Load the saved selection from Firestore
+  const savedSelectionDoc = await getDoc(
+    doc(db, "savedSelections", containerId)
+  )
+  const savedSelection = savedSelectionDoc.exists()
+    ? savedSelectionDoc.data().selected
+    : null
+
   try {
     const querySnapshot = await getDocs(collection(db, "users"))
     querySnapshot.forEach((doc) => {
@@ -36,16 +42,20 @@ async function fetchUsers(containerId) {
       const option = document.createElement("option")
       option.value = doc.id // Assuming user id is used as value
       option.textContent = userData.name // Assuming name field is present
+
+      // If this option was the saved selection, mark it as selected
+      if (savedSelection === doc.id) {
+        option.selected = true
+      }
+
       userSelect.appendChild(option)
     })
 
-    // Add change event listener to save selection to the container
-    selectElement.onSnapshot("change", function (event) {
-      const selectedUserId = event.target.value
-      userSelections[containerId] = selectedUserId
-      console.log(
-        "Selection in container " + containerId + ": " + selectedUserId
-      )
+    // Save the selection to Firestore whenever it changes
+    userSelect.addEventListener("change", async () => {
+      await setDoc(doc(db, "savedSelections", containerId), {
+        selected: userSelect.value,
+      })
     })
   } catch (error) {
     console.error("Error fetching users: ", error)
