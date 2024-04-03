@@ -117,15 +117,15 @@ option {
 
 @font-face {
   font-family: "Carbondale";
-  src: url("/fonts/carbondale.otf") format("OpenType");
+  src: url("/fonts/carbondale.woff2") format("woff2");
 }
 
 @font-face {
   font-family: "Bebas-Neue";
-  src: url("/fonts/BebasNeue.otf") format("OpenType");
+  src: url("/fonts/BebasNeue.woff2") format("woff2");
 }
 
 @font-face {
   font-family: "Bebas";
-  src: url("/fonts/Bebas.otf") format("OpenType");
+  src: url("/fonts/Bebas.woff2") format("woff2");
 }
