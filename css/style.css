@@ -115,6 +115,29 @@ option {
   margin-top: 10px;
 }
 
+.dropdown-menu {
+  max-width: 100%; /* Ensures the dropdown menu does not exceed the width of its parent */
+  display: none;
+  position: absolute;
+  right: 10px; /* Aligns the dropdown to the right side of its parent */
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  background-color: #aaaaaa;
+  border-radius: 10px;
+}
+.dropdown-menu a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
 @font-face {
   font-family: "Carbondale";
   src: url("/font/carbondale.woff2") format("woff2");

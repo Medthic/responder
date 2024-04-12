@@ -13,10 +13,17 @@
       <div class="topnav">
         <div id="Clock" class="clock" onload="showTime()"></div>
         <img src="img/logo.png" class="img-logo" />
-        <img src="img/menu.png" class="img-menu" />
+        <div class="dropdown">
+          <img src="img/menu.png" class="img-menu dropdown-toggle" id="dropdownMenuButton">
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="#">Home</a>
+            <a class="dropdown-item" href="#">Application</a>
+            <a class="dropdown-item" href="#">Settings</a>
+          </div>
+        </div>
       </div>
     </nav>
-    <div class="main-wrapper">
+    </div><div class="main-wrapper">
       <div class="engine">
         <div class="containerheader">ENGINE</div>
         <ul>

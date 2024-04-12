@@ -16,3 +16,8 @@ function showTime() {
 }
 
 showTime()
+
+document.querySelector(".img-menu").addEventListener("click", function () {
+  var menu = document.querySelector(".dropdown-menu")
+  menu.style.display = menu.style.display === "none" ? "block" : "none"
+})
