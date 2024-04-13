@@ -52,20 +52,47 @@ ul {
   display: block;
 }
 
+.parent-wrapper {
+  display: flex;
+}
+
 .main-wrapper {
-  width: 100%;
+  width: 75%;
+  height: calc(100%);
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 }
 
+.ambulance-wrapper {
+  width: 25%;
+  height: calc(100%);
+  margin-left: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
 .engine,
-.truck .applications {
+.truck,
+.rescue,
+.applications {
   width: calc(400px - 20px);
+  height: calc(100% - 20px);
   margin-bottom: 60px;
   margin-top: 80px;
   margin-left: 40px;
   margin-right: 40px;
+  background-color: #aaaaaa;
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 10px;
+}
+.amb {
+  width: calc(400px - 20px);
+  height: calc(100% - 20px);
   background-color: #aaaaaa;
   padding: 10px;
   box-sizing: border-box;
@@ -143,6 +170,17 @@ option {
 
 .dropdown:hover .dropdown-menu {
   display: block;
+}
+
+@media (max-width: 768px) {
+  .parent-wrapper {
+    flex-direction: column;
+  }
+
+  .main-wrapper,
+  .ambulance-wrapper {
+    width: 100%;
+  }
 }
 
 @font-face {

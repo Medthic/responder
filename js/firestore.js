@@ -6,6 +6,7 @@ import {
   getDoc,
   doc,
   setDoc,
+  addDoc,
 } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js"
 
 const firebaseConfig = {
@@ -75,3 +76,9 @@ fetchUsers("trk-ovm")
 fetchUsers("trk-irons")
 fetchUsers("trk-roof")
 fetchUsers("trk-can")
+fetchUsers("staff47")
+fetchUsers("staff472")
+fetchUsers("staff48")
+fetchUsers("staff482")
+fetchUsers("staff49")
+fetchUsers("staff492")
