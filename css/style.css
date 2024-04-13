@@ -60,7 +60,7 @@ ul {
 }
 
 .engine,
-.truck {
+.truck .applications {
   width: calc(400px - 20px);
   margin-bottom: 60px;
   margin-top: 80px;
