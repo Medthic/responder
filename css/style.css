@@ -54,31 +54,27 @@ ul {
 
 .parent-wrapper {
   display: flex;
+  align-items: center;
 }
 
-.main-wrapper {
+.truck-wrapper {
   width: 75%;
-  height: calc(100%);
+  margin-right: auto;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
 }
 
 .ambulance-wrapper {
   width: 25%;
-  height: calc(100%);
   margin-left: auto;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
   gap: 10px;
   margin-top: 10px;
 }
-
 .engine,
 .truck,
-.rescue,
-.applications {
+.rescue {
   width: calc(400px - 20px);
   height: calc(100% - 20px);
   margin-bottom: 60px;
