@@ -96,8 +96,12 @@ const updateDropdownBackground = (dropdown) => {
 
   switch (rank) {
     case "FFEMT":
-      dropdown.style.backgroundColor = "#5d6d7e" // Background color
-      dropdown.style.color = "#17202a" // Text color
+      dropdown.style.backgroundColor = "#5d6d7e"
+      dropdown.style.color = "#17202a"
+      break
+    case "FF":
+      dropdown.style.backgroundColor = "#5d6d7e"
+      dropdown.style.color = "#17202a"
       break
     case "CHF":
       dropdown.style.backgroundColor = "#d7dbdd"
@@ -113,6 +117,14 @@ const updateDropdownBackground = (dropdown) => {
       break
     case "GS":
       dropdown.style.backgroundColor = "#52be80"
+      dropdown.style.color = "#17202a"
+      break
+    case "Medic":
+      dropdown.style.backgroundColor = "#407294"
+      dropdown.style.color = "#17202a"
+      break
+    case "EMT":
+      dropdown.style.backgroundColor = "#a2ded0"
       dropdown.style.color = "#17202a"
       break
     default:
@@ -155,6 +167,10 @@ async function populateDropdowns() {
             option.style.backgroundColor = "#5d6d7e"
             option.style.color = "#17202a"
             break
+          case "FF":
+            option.style.backgroundColor = "#5d6d7e"
+            option.style.color = "#17202a"
+            break
           case "CHF":
             option.style.backgroundColor = "#d7dbdd"
             option.style.color = "#17202a"
@@ -169,6 +185,14 @@ async function populateDropdowns() {
             break
           case "GS":
             option.style.backgroundColor = "#52be80"
+            option.style.color = "#17202a"
+            break
+          case "Medic":
+            option.style.backgroundColor = "#407294"
+            option.style.color = "#17202a"
+            break
+          case "EMT":
+            option.style.backgroundColor = "#a2ded0"
             option.style.color = "#17202a"
             break
           default:
