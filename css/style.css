@@ -1,9 +1,27 @@
+/* General Body Styling */
 body {
   margin: 0;
   padding: 0;
   background-color: #1e1e1e;
 }
 
+/* Fonts */
+@font-face {
+  font-family: "Carbondale";
+  src: url("/font/carbondale.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Bebas-Neue";
+  src: url("/font/BebasNeue.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Bebas";
+  src: url("/font/Bebas.woff2") format("woff2");
+}
+
+/* Global Typography */
 ul {
   margin: 8px;
   margin-left: -25px;
@@ -12,6 +30,11 @@ ul {
   letter-spacing: 2px;
 }
 
+option {
+  color: #aaaaaa;
+}
+
+/* Top Navigation Bar */
 .topnav {
   background-color: #2d2d30;
   width: 100%;
@@ -26,10 +49,16 @@ ul {
   color: #aaaaaa;
   font-size: 3vmax;
   letter-spacing: 3px;
-  font-family: Impact;
+  font-family: "Bebas-Neue", sans-serif;
+}
+
+.img-logo {
+  width: auto;
+  height: 9vmax;
+  margin: auto;
+  padding: 5px;
+  filter: drop-shadow(0 0 0.1rem #aaaaaa);
   display: block;
-  width: 38.4px;
-  font-family: "bebas-neue", sans-serif;
 }
 
 .img-menu {
@@ -43,15 +72,39 @@ ul {
   opacity: 0.5;
 }
 
-.img-logo {
-  width: auto;
-  height: 9vmax;
-  margin: auto;
-  padding: 5px;
-  filter: drop-shadow(0 0 0.1rem #aaaaaa);
+/* Dropdown Menu */
+.dropdown-menu {
+  max-width: 100%;
+  font-size: 18pt;
+  text-align: center;
+  display: none;
+  position: absolute;
+  right: 10px;
+  background-color: #aaaaaa;
+  min-width: 200px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  font-family: "Bebas", sans-serif;
+  border-radius: 10px;
+}
+
+.dropdown-menu a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
   display: block;
 }
 
+.dropdown-menu a:hover {
+  background-color: #8d8d8d;
+  border-radius: 10px;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+/* Wrappers */
 .parent-wrapper {
   display: flex;
   align-items: center;
@@ -73,16 +126,11 @@ ul {
   justify-content: center;
   gap: 10px;
 }
+
+/* Containers */
 .engine,
 .truck,
-.rescue {
-  width: calc(400px - 20px);
-  height: calc(100% - 20px);
-  background-color: #aaaaaa;
-  padding: 10px;
-  box-sizing: border-box;
-  border-radius: 10px;
-}
+.rescue,
 .amb {
   width: calc(400px - 20px);
   height: calc(100% - 20px);
@@ -92,12 +140,22 @@ ul {
   border-radius: 10px;
 }
 
+.containerheader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Carbondale", sans-serif;
+  font-size: 40pt;
+  letter-spacing: 3px;
+  margin-top: 10px;
+}
+
+/* Dropdowns */
 select {
-  width: calc(100%);
+  width: 100%;
   background-color: #2d2d30;
   box-sizing: border-box;
   border-radius: 5px;
-  text-decoration: none;
   font-family: "Bebas", sans-serif;
   font-size: 14pt;
   letter-spacing: 3px;
@@ -106,10 +164,7 @@ select {
   text-align: center;
 }
 
-option {
-  color: #aaaaaa;
-}
-
+/* Scrolling Message */
 #scrolling-message {
   position: fixed;
   bottom: 0;
@@ -125,46 +180,7 @@ option {
   letter-spacing: 3px;
 }
 
-.containerheader {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: "Carbondale", sans-serif;
-  font-size: 40pt;
-  letter-spacing: 3px;
-  margin-top: 10px;
-}
-
-.dropdown-menu {
-  max-width: 100%;
-  font-size: 18pt;
-  text-align: center;
-  display: none;
-  position: absolute;
-  right: 10px;
-  background-color: #f9f9f9;
-  min-width: 200px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  z-index: 1;
-  background-color: #aaaaaa;
-  font-family: "Bebas", sans-serif;
-  border-radius: 10px;
-}
-.dropdown-menu a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-}
-.dropdown-menu a:hover {
-  background-color: #8d8d8d;
-  border-radius: 10px;
-}
-
-.dropdown:hover .dropdown-menu {
-  display: block;
-}
-
+/* Responsive Design */
 @media (max-width: 768px) {
   .parent-wrapper {
     flex-direction: column;
@@ -175,19 +191,4 @@ option {
     width: 100%;
     margin-top: 10px;
   }
-}
-
-@font-face {
-  font-family: "Carbondale";
-  src: url("/font/carbondale.woff2") format("woff2");
-}
-
-@font-face {
-  font-family: "Bebas-Neue";
-  src: url("/font/BebasNeue.woff2") format("woff2");
-}
-
-@font-face {
-  font-family: "Bebas";
-  src: url("/font/Bebas.woff2") format("woff2");
 }

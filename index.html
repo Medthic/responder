@@ -5,16 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>responder.gg | Home</title>
     <link rel="stylesheet" href="css/style.css" />
-    <script src="js/main.js"></script>
-    <script src="js/firestore.js" type="module"></script>
+    <script src="js/main.js" defer></script>
+    <script src="js/supabase.js" type="module" defer></script>
   </head>
   <body>
+    <!-- Navigation Bar -->
     <nav>
       <div class="topnav">
         <div id="Clock" class="clock" onload="showTime()"></div>
-        <img src="img/logo.png" class="img-logo" />
+        <img src="img/logo.png" class="img-logo" alt="Logo" />
         <div class="dropdown">
-          <img src="img/menu.png" class="img-menu dropdown-toggle" id="dropdownMenuButton">
+          <img
+            src="img/menu.png"
+            class="img-menu dropdown-toggle"
+            id="dropdownMenuButton"
+            alt="Menu"
+          />
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <a class="dropdown-item" href="./index.html">Home</a>
             <a class="dropdown-item" href="./member.html">Application</a>
@@ -23,130 +29,147 @@
         </div>
       </div>
     </nav>
+
+    <!-- Parent Wrapper -->
     <div class="parent-wrapper">
-    <div class="truck-wrapper">
-              <div class="engine">
-                <div class="containerheader">ENGINE</div>
-                <ul>
-                  CHAUFFEUR
-                </ul>
-                <select id="eng-chauffeur"></select>
-                <ul>
-                  OFFICER
-                </ul>
-                <select id="eng-officer"></select>
-                <ul>
-                  NOZZLE
-                </ul>
-                <select id="eng-nozzle"></select>
-                <ul>
-                  LAYOUT
-                </ul>
-                <select id="eng-layout"></select>
-                <ul>
-                  FORCIBLE ENTRY
-                </ul>
-                <select id="eng-forcible"></select>
-                <ul>
-                  BACKUP
-                </ul>
-                <select id="eng-backup"></select>
-              </div>
-              <div class="engine">
-                <div class="containerheader">TRUCK</div>
-                <ul>
-                  CHAUFFEUR
-                </ul>
-                <select id="trk-chauffeur"></select>
-                <ul>
-                  OFFICER
-                </ul>
-                <select id="trk-officer"></select>
-                <ul>
-                  OVM
-                </ul>
-                <select id="trk-ovm"></select>
-                <ul>
-                  IRONS
-                </ul>
-                <select id="trk-irons"></select>
-                <ul>
-                  ROOF
-                </ul>
-                <select id="trk-roof"></select>
-                <ul>
-                  CAN
-                </ul>
-                <select id="trk-can"></select>
-              </div>
-                            <div class="rescue">
-                <div class="containerheader">rescue</div>
-                <ul>
-                  CHAUFFEUR
-                </ul>
-                <select id="res-chauffeur"></select>
-                <ul>
-                  OFFICER
-                </ul>
-                <select id="res-officer"></select>
-                <ul>
-                  safety
-                </ul>
-                <select id="res-safety"></select>
-                <ul>
-                  tool
-                </ul>
-                <select id="res-tool"></select>
-                <ul>
-                  crib
-                </ul>
-                <select id="res-crib"></select>
-                <ul>
-                  crib
-                </ul>
-                <select id="res-crib2"></select>
-              </div>
-            </div>
-    <div class="ambulance-wrapper">
-                      <div class="amb">
-                <div class="containerheader">Ambulance 47</div>
-                <ul>
-                staff
-                </ul>
-                <select id="staff47"></select>
-                <ul>
-                  staff
-                </ul>
-                <select id="staff472"></select>
-              </div>
-                      <div class="amb">
-                <div class="containerheader">Ambulance 48</div>
-                <ul>
-                staff
-                </ul>
-                <select id="staff48"></select>
-                <ul>
-                  staff
-                </ul>
-                <select id="staff482"></select>
-              </div>
-                      <div class="amb">
-                <div class="containerheader">Ambulance 49</div>
-                <ul>
-                staff
-                </ul>
-                <select id="staff49"></select>
-                <ul>
-                  staff
-                </ul>
-                <select id="staff492"></select>
-              </div>
+      <!-- Truck Wrapper -->
+      <div class="truck-wrapper">
+        <!-- Engine Section -->
+        <div class="engine">
+          <div class="containerheader">ENGINE</div>
+          <ul>
+            CHAUFFEUR
+          </ul>
+          <select id="eng-chauffeur"></select>
+          <ul>
+            OFFICER
+          </ul>
+          <select id="eng-officer"></select>
+          <ul>
+            NOZZLE
+          </ul>
+          <select id="eng-nozzle"></select>
+          <ul>
+            LAYOUT
+          </ul>
+          <select id="eng-layout"></select>
+          <ul>
+            FORCIBLE ENTRY
+          </ul>
+          <select id="eng-forcible"></select>
+          <ul>
+            BACKUP
+          </ul>
+          <select id="eng-backup"></select>
+        </div>
+
+        <!-- Truck Section -->
+        <div class="engine">
+          <div class="containerheader">TRUCK</div>
+          <ul>
+            CHAUFFEUR
+          </ul>
+          <select id="trk-chauffeur"></select>
+          <ul>
+            OFFICER
+          </ul>
+          <select id="trk-officer"></select>
+          <ul>
+            OVM
+          </ul>
+          <select id="trk-ovm"></select>
+          <ul>
+            IRONS
+          </ul>
+          <select id="trk-irons"></select>
+          <ul>
+            ROOF
+          </ul>
+          <select id="trk-roof"></select>
+          <ul>
+            CAN
+          </ul>
+          <select id="trk-can"></select>
+        </div>
+
+        <!-- Rescue Section -->
+        <div class="rescue">
+          <div class="containerheader">RESCUE</div>
+          <ul>
+            CHAUFFEUR
+          </ul>
+          <select id="res-chauffeur"></select>
+          <ul>
+            OFFICER
+          </ul>
+          <select id="res-officer"></select>
+          <ul>
+            SAFETY
+          </ul>
+          <select id="res-safety"></select>
+          <ul>
+            TOOL
+          </ul>
+          <select id="res-tool"></select>
+          <ul>
+            CRIB
+          </ul>
+          <select id="res-crib"></select>
+          <ul>
+            CRIB
+          </ul>
+          <select id="res-crib2"></select>
+        </div>
+      </div>
+
+      <!-- Ambulance Wrapper -->
+      <div class="ambulance-wrapper">
+        <!-- Ambulance 47 -->
+        <div class="amb">
+          <div class="containerheader">Ambulance 47</div>
+          <ul>
+            STAFF
+          </ul>
+          <select id="staff47"></select>
+          <ul>
+            STAFF
+          </ul>
+          <select id="staff472"></select>
+        </div>
+
+        <!-- Ambulance 48 -->
+        <div class="amb">
+          <div class="containerheader">Ambulance 48</div>
+          <ul>
+            STAFF
+          </ul>
+          <select id="staff48"></select>
+          <ul>
+            STAFF
+          </ul>
+          <select id="staff482"></select>
+        </div>
+
+        <!-- Ambulance 49 -->
+        <div class="amb">
+          <div class="containerheader">Ambulance 49</div>
+          <ul>
+            STAFF
+          </ul>
+          <select id="staff49"></select>
+          <ul>
+            STAFF
+          </ul>
+          <select id="staff492"></select>
+        </div>
+      </div>
     </div>
+
+    <!-- Scrolling Message -->
     <div id="scrolling-message">
-      <marquee behavior="scroll" direction="left"
-        >This is a test scrolling message</marquee
-      >
+      <marquee behavior="scroll" direction="left">
+        This is a test scrolling message
+      </marquee>
     </div>
   </body>
-  <script src="js/main.js"></script>
 </html>
