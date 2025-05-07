@@ -21,3 +21,37 @@ document.querySelector(".img-menu").addEventListener("click", function () {
   var menu = document.querySelector(".dropdown-menu")
   menu.style.display = menu.style.display === "none" ? "block" : "none"
 })
+
+// Function to check for selection changes
+function checkForSelectionUpdates() {
+  const currentSelections =
+    JSON.parse(localStorage.getItem("currentSelections")) || {}
+
+  // Fetch the latest selections from the database
+  fetch("/responder/api/selections", { cache: "no-store" }) // Replace with your API endpoint
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Failed to fetch selections")
+      }
+      return response.json()
+    })
+    .then((latestSelections) => {
+      // Compare the latest selections with the current selections
+      if (
+        JSON.stringify(currentSelections) !== JSON.stringify(latestSelections)
+      ) {
+        console.log("Selections have changed. Refreshing...")
+        localStorage.setItem(
+          "currentSelections",
+          JSON.stringify(latestSelections)
+        )
+        location.reload() // Refresh the page
+      }
+    })
+    .catch((error) => {
+      console.error("Error checking for selection updates:", error)
+    })
+}
+
+// Check for updates every 30 seconds
+setInterval(checkForSelectionUpdates, 10000)

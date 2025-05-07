@@ -197,10 +197,44 @@ async function populateDropdowns() {
 }
 
 /**
+ * Subscribe to real-time updates for dropdown selections
+ */
+function subscribeToSelectionChanges() {
+  supabase
+    .channel("public:assignments") // Subscribe to the "assignments" table
+    .on(
+      "postgres_changes",
+      {
+        event: "UPDATE",
+        schema: "public",
+        table: "assignments",
+        filter: "id=eq.current",
+      },
+      (payload) => {
+        console.log("Change detected in selections:", payload)
+
+        // Reload the dropdown selections when a change is detected
+        loadSavedSelections()
+      }
+    )
+    .subscribe((status) => {
+      if (status === "SUBSCRIBED") {
+        console.log("Subscribed to selection changes.")
+      }
+    })
+}
+
+/**
  * Initialize the application when the DOM is loaded
  */
 document.addEventListener("DOMContentLoaded", () => {
   populateDropdowns()
+  subscribeToSelectionChanges() // Start listening for changes
 })
 
-export { supabase, populateDropdowns, saveSelections }
+export {
+  supabase,
+  populateDropdowns,
+  saveSelections,
+  subscribeToSelectionChanges,
+}
