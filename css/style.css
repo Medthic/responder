@@ -3,22 +3,26 @@ body {
   margin: 0;
   padding: 0;
   background-color: #1e1e1e;
+  font-family: "Bebas-Neue", sans-serif;
 }
 
 /* Fonts */
 @font-face {
   font-family: "Carbondale";
-  src: url("/responder/font/carbondale.woff2") format("woff2");
+  src: url("responder/font/carbondale.woff2") format("woff2"),
+    url("../font/carbondale.woff2") format("woff2");
 }
 
 @font-face {
   font-family: "Bebas-Neue";
-  src: url("/responder/font/BebasNeue.woff2") format("woff2");
+  src: url("responder/font/BebasNeue.woff2") format("woff2"),
+    url("../font/BebasNeue.woff2") format("woff2");
 }
 
 @font-face {
   font-family: "Bebas";
-  src: url("/responder/font/Bebas.woff2") format("woff2");
+  src: url("responder/font/Bebas.woff2") format("woff2"),
+    url("../font/Bebas.woff2") format("woff2");
 }
 
 /* Global Typography */
@@ -38,41 +42,48 @@ option {
 .topnav {
   background-color: #2d2d30;
   width: 100%;
-  height: 6vmax;
+  height: 5vmax;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 0 20px;
+  position: relative;
+  box-sizing: border-box;
+  overflow: visible; /* Allow content to overflow */
+  z-index: 10; /* Ensure the navigation bar is above other elements */
 }
 
+/* Centered Logo Hanging Over Nav Bar */
+.img-logo {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  max-height: 6vmax; /* Adjust the size of the logo */
+  max-width: 100%;
+  object-fit: contain; /* Maintain aspect ratio */
+  top: 0.5vmax; /* Move the logo up to hang over the navigation bar */
+  z-index: 20; /* Ensure the logo is above the parent wrapper */
+}
+
+/* Clock Styling */
 .clock {
-  padding: 20px;
   color: #aaaaaa;
   font-size: 3vmax;
   letter-spacing: 3px;
   font-family: "Bebas-Neue", sans-serif;
+  white-space: nowrap; /* Prevent the clock from wrapping */
 }
 
-.img-logo {
-  width: auto;
-  height: 9vmax;
-  margin: auto;
-  padding: 5px;
-  filter: drop-shadow(0 0 0.1rem #aaaaaa);
-  display: block;
-}
-
+/* Dropdown Menu */
 .img-menu {
-  width: auto;
   height: 2vmax;
-  padding: 20px;
-  display: block;
+  cursor: pointer;
 }
 
 .img-menu:hover {
   opacity: 0.5;
 }
 
-/* Dropdown Menu */
 .dropdown-menu {
   max-width: 100%;
   font-size: 18pt;
@@ -82,7 +93,7 @@ option {
   right: 10px;
   background-color: #aaaaaa;
   min-width: 200px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
   z-index: 1;
   font-family: "Bebas", sans-serif;
   border-radius: 10px;
@@ -107,8 +118,18 @@ option {
 /* Wrappers */
 .parent-wrapper {
   display: flex;
-  align-items: center;
-  margin-top: 10px;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  height: calc(
+    100vh - 6vmax - 40px
+  ); /* Full height minus the navigation bar and scrolling message */
+  background-color: #1e1e1e; /* Optional: Ensure consistent background */
+  padding: 20px; /* Add padding for spacing */
+  margin-top: 0.5vmax; /* Add spacing below the navigation bar */
+  box-sizing: border-box; /* Include padding in height calculations */
+  position: relative; /* Keep this for layout purposes */
+  z-index: 1; /* Ensure it stays below the logo */
+  overflow: visible; /* Allow content (like the logo) to overflow */
 }
 
 .truck-wrapper {
@@ -133,7 +154,6 @@ option {
 .rescue,
 .amb {
   width: calc(400px - 20px);
-  height: calc(100% - 20px);
   background-color: #aaaaaa;
   padding: 10px;
   box-sizing: border-box;
@@ -150,7 +170,7 @@ option {
   margin-top: 10px;
 }
 
-/* Dropdowns with outlines */
+/* Dropdowns with Outlines */
 select {
   width: 100%;
   background-color: #2d2d30;
@@ -162,14 +182,18 @@ select {
   color: #aaaaaa;
   padding: 8px;
   text-align: center;
-  border: 1px solid #444; /* Default border */
-  outline: none; /* Remove default browser outline */
-  transition: outline 0.2s ease, border-color 0.2s ease; /* Smooth transition */
+  border: 1px solid #444;
+  outline: none;
+  transition: outline 0.2s ease, border-color 0.2s ease;
 }
 
 select:focus {
-  outline: 2px solid #f4d03f; /* Add a custom outline on focus */
-  border-color: #f4d03f; /* Change border color on focus */
+  border-color: #d4d4d4;
+}
+
+select {
+  background-color: inherit !important;
+  color: inherit !important;
 }
 
 /* Scrolling Message */
@@ -180,11 +204,165 @@ select:focus {
   width: 100%;
   background-color: #333;
   color: #fff;
-  padding-top: 2px;
-  white-space: nowrap;
-  overflow: hidden;
+  padding: 5px 0;
+  text-align: center;
   font-family: "Bebas", sans-serif;
   font-size: 14pt;
+  letter-spacing: 2px;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.scrolling-text {
+  display: inline-block;
+  white-space: nowrap;
+  animation: scroll-left 10s linear infinite;
+}
+
+@keyframes scroll-left {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+/* Admin Panel Styling */
+.admin-panel {
+  margin: 20px auto;
+  padding: 20px;
+  max-width: 800px;
+  background-color: #2d2d30;
+  color: #aaaaaa;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  font-family: "Bebas-Neue", sans-serif;
+  text-align: center;
+}
+
+.admin-panel h2 {
+  font-size: 3vmax;
+  color: #ffffff;
+  margin-bottom: 20px;
+  letter-spacing: 10px;
+}
+
+.admin-panel p {
+  font-size: 14pt;
+  margin-bottom: 20px;
+  color: #cccccc;
+}
+
+.admin-panel ul {
+  margin: 10px 0 5px;
+  font-size: 15pt;
+  letter-spacing: 2px;
+  color: #ffffff;
+}
+
+.admin-panel input,
+.admin-panel select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #444;
+  border-radius: 5px;
+  background-color: #1e1e1e;
+  color: #ffffff;
+  font-size: 14pt;
+  font-family: "Bebas-Neue", sans-serif;
+}
+
+.admin-panel button {
+  width: 100%;
+  padding: 10px;
+  background-color: #5d6d7e;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  font-size: 14pt;
+  font-family: "Bebas-Neue", sans-serif;
+  cursor: pointer;
+}
+
+.admin-panel button:hover {
+  background-color: #444;
+}
+
+#admin-message {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 12pt;
+}
+
+/* Admin Tools Buttons */
+.admin-tools {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.admin-button {
+  padding: 10px 20px;
+  background-color: #407294;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  font-size: 14pt;
+  font-family: "Bebas-Neue", sans-serif;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.admin-button:hover {
+  background-color: #305a73;
+}
+
+/* Scrolling Message Form */
+.scrolling-message-section {
+  margin-top: 30px;
+}
+
+#scrolling-message-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+#message-content {
+  width: 100%;
+  max-width: 600px;
+  height: 100px;
+  padding: 10px;
+  font-size: 14pt;
+  border: 1px solid #444;
+  border-radius: 5px;
+  background-color: #1e1e1e;
+  color: #ffffff;
+  resize: none;
+}
+
+#message-content::placeholder {
+  color: #aaaaaa;
+}
+
+#message-status {
+  margin-top: 10px;
+  font-size: 12pt;
+  color: #52be80; /* Success color */
+  text-align: center;
+}
+
+/* Specific styling for the Manage Scrolling Message h3 */
+.scrolling-message-section h3 {
+  font-family: "Bebas-Neue", sans-serif;
+  font-size: 1vmax;
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 20px;
   letter-spacing: 3px;
 }
 

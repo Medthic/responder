@@ -8,9 +8,6 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_KEY)
 
 /**
  * Debounce function to throttle rapid function calls
- * @param {Function} func - The function to debounce
- * @param {number} timeout - Debounce timeout in milliseconds
- * @returns {Function} - The debounced function
  */
 function debounce(func, timeout = 1000) {
   let timer
@@ -25,31 +22,21 @@ function debounce(func, timeout = 1000) {
  */
 const saveSelections = debounce(async () => {
   try {
-    console.log("Saving selections...")
-
     const selections = {}
-    const dropdowns = document.querySelectorAll("select")
-
-    dropdowns.forEach((dropdown) => {
+    document.querySelectorAll("select").forEach((dropdown) => {
       selections[dropdown.id] = dropdown.value || null
     })
 
-    console.log("Selections to save:", selections)
-
-    const { data, error } = await supabase.from("assignments").upsert({
-      id: "current", // Fixed ID for simplicity
+    const { error } = await supabase.from("assignments").upsert({
+      id: "current",
       selections,
       updated_at: new Date().toISOString(),
     })
 
-    if (error) {
-      console.error("Error saving selections:", error)
-      throw error
-    }
-
-    console.log("Selections saved successfully:", data)
+    if (error) throw error
+    console.log("Selections saved successfully.")
   } catch (error) {
-    console.error("Error during saveSelections:", error)
+    console.error("Error saving selections:", error)
   }
 })
 
@@ -58,25 +45,19 @@ const saveSelections = debounce(async () => {
  */
 async function loadSavedSelections() {
   try {
-    console.log("Loading saved selections...")
-
     const { data, error } = await supabase
       .from("assignments")
       .select("selections")
       .eq("id", "current")
       .single()
 
-    if (error && error.code !== "PGRST116") throw error // Ignore "no rows" error
+    if (error && error.code !== "PGRST116") throw error
 
-    if (data && data.selections) {
-      console.log("Loaded selections:", data.selections)
-
+    if (data?.selections) {
       Object.entries(data.selections).forEach(([dropdownId, value]) => {
         const dropdown = document.getElementById(dropdownId)
         if (dropdown) {
-          dropdown.value = value || "" // Set the value or default to an empty string
-
-          // Update the background color and text color based on the selected rank
+          dropdown.value = value || ""
           updateDropdownBackground(dropdown)
         }
       })
@@ -87,50 +68,32 @@ async function loadSavedSelections() {
 }
 
 /**
- * Function to update dropdown background and text color based on selected rank
- * @param {HTMLSelectElement} dropdown - The dropdown element
+ * Update dropdown background and text color based on selected rank
  */
 const updateDropdownBackground = (dropdown) => {
-  const selectedOption = dropdown.options[dropdown.selectedIndex]
-  const rank = selectedOption.dataset.rank
-
-  switch (rank) {
-    case "FFEMT":
-      dropdown.style.backgroundColor = "#5d6d7e"
-      dropdown.style.color = "#17202a"
-      break
-    case "FF":
-      dropdown.style.backgroundColor = "#5d6d7e"
-      dropdown.style.color = "#17202a"
-      break
-    case "CHF":
-      dropdown.style.backgroundColor = "#d7dbdd"
-      dropdown.style.color = "#17202a"
-      break
-    case "CAP":
-      dropdown.style.backgroundColor = "#cd6155"
-      dropdown.style.color = "#17202a"
-      break
-    case "LT":
-      dropdown.style.backgroundColor = "#f4d03f"
-      dropdown.style.color = "#17202a"
-      break
-    case "GS":
-      dropdown.style.backgroundColor = "#52be80"
-      dropdown.style.color = "#17202a"
-      break
-    case "Medic":
-      dropdown.style.backgroundColor = "#407294"
-      dropdown.style.color = "#17202a"
-      break
-    case "EMT":
-      dropdown.style.backgroundColor = "#a2ded0"
-      dropdown.style.color = "#17202a"
-      break
-    default:
-      dropdown.style.backgroundColor = "#2d2d30" // Default background color
-      dropdown.style.color = "#ffffff" // Default text color
+  const rankColors = {
+    FFEMT: { bg: "#5d6d7e", text: "#17202a" },
+    FF: { bg: "#5d6d7e", text: "#17202a" },
+    CHF: { bg: "#d7dbdd", text: "#17202a" },
+    CAP: { bg: "#cd6155", text: "#17202a" },
+    LT: { bg: "#f4d03f", text: "#17202a" },
+    GS: { bg: "#52be80", text: "#17202a" },
+    Medic: { bg: "#407294", text: "#17202a" },
+    EMT: { bg: "#a2ded0", text: "#17202a" },
+    default: { bg: "#2d2d30", text: "#ffffff" },
   }
+
+  const rank =
+    dropdown.options[dropdown.selectedIndex]?.dataset.rank || "default"
+  const { bg, text } = rankColors[rank] || rankColors.default
+
+  // Apply styles to the dropdown
+  dropdown.style.backgroundColor = bg
+  dropdown.style.color = text
+
+  // Ensure styles persist even when the dropdown is focused
+  dropdown.style.setProperty("background-color", bg, "important")
+  dropdown.style.setProperty("color", text, "important")
 }
 
 /**
@@ -138,82 +101,50 @@ const updateDropdownBackground = (dropdown) => {
  */
 async function populateDropdowns() {
   try {
-    console.log("Populating dropdowns...")
-
     const { data: members, error } = await supabase
       .from("members")
-      .select("id, name, is_available, rank") // Include rank in the query
+      .select("id, name, is_available, rank")
       .eq("is_available", true)
       .order("name", { ascending: true })
 
     if (error) throw error
 
-    const dropdowns = document.querySelectorAll("select")
-
-    dropdowns.forEach((dropdown) => {
-      // Clear existing options
+    document.querySelectorAll("select").forEach((dropdown) => {
       dropdown.innerHTML = '<option value="">-- Select member --</option>'
-
-      // Populate dropdown with members
       members.forEach((member) => {
         const option = document.createElement("option")
         option.value = member.id
         option.textContent = member.name
-        option.dataset.rank = member.rank // Store rank as a data attribute
+        option.dataset.rank = member.rank
 
-        // Apply background and text color to the option based on rank
-        switch (member.rank) {
-          case "FFEMT":
-            option.style.backgroundColor = "#5d6d7e"
-            option.style.color = "#17202a"
-            break
-          case "FF":
-            option.style.backgroundColor = "#5d6d7e"
-            option.style.color = "#17202a"
-            break
-          case "CHF":
-            option.style.backgroundColor = "#d7dbdd"
-            option.style.color = "#17202a"
-            break
-          case "CAP":
-            option.style.backgroundColor = "#cd6155"
-            option.style.color = "#17202a"
-            break
-          case "LT":
-            option.style.backgroundColor = "#f4d03f"
-            option.style.color = "#17202a"
-            break
-          case "GS":
-            option.style.backgroundColor = "#52be80"
-            option.style.color = "#17202a"
-            break
-          case "Medic":
-            option.style.backgroundColor = "#407294"
-            option.style.color = "#17202a"
-            break
-          case "EMT":
-            option.style.backgroundColor = "#a2ded0"
-            option.style.color = "#17202a"
-            break
-          default:
-            option.style.backgroundColor = "#ffffff" // Default background color
-            option.style.color = "#000000" // Default text color
+        // Apply rank-specific colors to the option
+        const rankColors = {
+          FFEMT: { bg: "#5d6d7e", text: "#17202a" },
+          FF: { bg: "#5d6d7e", text: "#17202a" },
+          CHF: { bg: "#d7dbdd", text: "#17202a" },
+          CAP: { bg: "#cd6155", text: "#17202a" },
+          LT: { bg: "#f4d03f", text: "#17202a" },
+          GS: { bg: "#52be80", text: "#17202a" },
+          Medic: { bg: "#407294", text: "#17202a" },
+          EMT: { bg: "#a2ded0", text: "#17202a" },
+          default: { bg: "#2d2d30", text: "#ffffff" },
         }
+
+        const { bg, text } = rankColors[member.rank] || rankColors.default
+        option.style.backgroundColor = bg
+        option.style.color = text
 
         dropdown.appendChild(option)
       })
 
-      // Attach event listener to update background and text color on change
       dropdown.addEventListener("change", () => {
         updateDropdownBackground(dropdown)
-        saveSelections() // Save selections when the dropdown changes
+        saveSelections()
       })
 
-      // Set initial background and text color
       updateDropdownBackground(dropdown)
     })
 
-    // Load previously saved selections
     await loadSavedSelections()
   } catch (error) {
     console.error("Error populating dropdowns:", error)
@@ -225,7 +156,7 @@ async function populateDropdowns() {
  */
 function subscribeToSelectionChanges() {
   supabase
-    .channel("public:assignments") // Subscribe to the "assignments" table
+    .channel("public:assignments")
     .on(
       "postgres_changes",
       {
@@ -234,26 +165,197 @@ function subscribeToSelectionChanges() {
         table: "assignments",
         filter: "id=eq.current",
       },
-      (payload) => {
-        console.log("Change detected in selections:", payload)
+      () => loadSavedSelections()
+    )
+    .subscribe((status) => {
+      if (status === "SUBSCRIBED")
+        console.log("Subscribed to selection changes.")
+    })
+}
 
-        // Reload the dropdown selections when a change is detected
-        loadSavedSelections()
-      }
+/**
+ * Subscribe to real-time updates for the scrolling message
+ */
+function subscribeToScrollingMessageChanges() {
+  supabase
+    .channel("public:scrolling_messages")
+    .on(
+      "postgres_changes",
+      {
+        event: "UPDATE",
+        schema: "public",
+        table: "scrolling_messages",
+        filter: "is_active=eq.true",
+      },
+      () => fetchScrollingMessage() // Fetch the updated message
     )
     .subscribe((status) => {
       if (status === "SUBSCRIBED") {
-        console.log("Subscribed to selection changes.")
+        console.log("Subscribed to scrolling message changes.")
       }
     })
 }
 
 /**
- * Initialize the application when the DOM is loaded
+ * Populate the rank dropdown with predefined rank options
+ */
+function populateRankDropdown() {
+  const rankDropdown = document.getElementById("member-rank")
+  if (rankDropdown) {
+    rankDropdown.innerHTML = '<option value="">Select Rank</option>'
+    const ranks = ["FFEMT", "FF", "CHF", "CAP", "LT", "GS", "Medic", "EMT"]
+    ranks.forEach((rank) => {
+      const option = document.createElement("option")
+      option.value = rank
+      option.textContent = rank
+      rankDropdown.appendChild(option)
+    })
+  }
+}
+
+/**
+ * Handle Admin Form Submission
+ */
+function handleAdminFormSubmission() {
+  const adminForm = document.getElementById("admin-form")
+  const adminMessage = document.getElementById("admin-message")
+
+  if (adminForm) {
+    adminForm.addEventListener("submit", async (event) => {
+      event.preventDefault()
+      const name = document.getElementById("member-name").value.trim()
+      const rank = document.getElementById("member-rank").value.trim()
+
+      if (!name || !rank) {
+        adminMessage.textContent = "Please fill out all fields."
+        adminMessage.style.color = "red"
+        return
+      }
+
+      try {
+        const { error } = await supabase
+          .from("members")
+          .insert([{ name, rank }])
+        if (error) throw error
+
+        adminMessage.textContent = `Member "${name}" with rank "${rank}" added successfully!`
+        adminMessage.style.color = "green"
+        adminForm.reset()
+      } catch (error) {
+        console.error("Error adding member:", error)
+        adminMessage.textContent = "Failed to add member. Please try again."
+        adminMessage.style.color = "red"
+      }
+    })
+  }
+}
+
+/**
+ * Fetch and display the scrolling message from the database
+ */
+async function fetchScrollingMessage() {
+  const scrollingText = document.querySelector("#scrolling-message marquee")
+  try {
+    const { data, error } = await supabase
+      .from("scrolling_messages")
+      .select("content")
+      .eq("is_active", true)
+      .single()
+
+    if (error) throw error
+    scrollingText.textContent = data.content || "No active message available."
+  } catch (error) {
+    console.error("Error fetching scrolling message:", error)
+    scrollingText.textContent = "Error loading message."
+  }
+}
+
+/**
+ * Load the current scrolling message into the admin page edit box
+ */
+async function loadScrollingMessageIntoEditBox() {
+  const messageContent = document.getElementById("message-content")
+  if (!messageContent) {
+    console.error("Message content text box not found.")
+    return
+  }
+
+  try {
+    const { data, error } = await supabase
+      .from("scrolling_messages")
+      .select("content")
+      .eq("is_active", true)
+      .single()
+
+    if (error) throw error
+
+    // Populate the text box with the current message
+    messageContent.value = data?.content || ""
+  } catch (error) {
+    console.error("Error loading scrolling message:", error)
+    messageContent.value = "Error loading message."
+  }
+}
+
+/**
+ * Handle Scrolling Message Form Submission
+ */
+function handleScrollingMessageFormSubmission() {
+  const form = document.getElementById("scrolling-message-form")
+  const messageContent = document.getElementById("message-content")
+  const messageStatus = document.getElementById("message-status")
+
+  if (!form || !messageContent) {
+    console.error("Scrolling message form or text box not found.")
+    return
+  }
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault()
+
+    const newMessage = messageContent.value.trim()
+    if (!newMessage) {
+      messageStatus.textContent = "Message cannot be empty."
+      messageStatus.style.color = "red"
+      return
+    }
+
+    try {
+      // Update the scrolling message in the database
+      const { error } = await supabase
+        .from("scrolling_messages")
+        .update({ content: newMessage })
+        .eq("is_active", true)
+
+      if (error) throw error
+
+      messageStatus.textContent = "Message updated successfully!"
+      messageStatus.style.color = "green"
+
+      // Optionally, refresh the scrolling message on the page
+      fetchScrollingMessage()
+    } catch (error) {
+      console.error("Error updating scrolling message:", error)
+      messageStatus.textContent = "Failed to update message. Please try again."
+      messageStatus.style.color = "red"
+    }
+  })
+}
+
+/**
+ * Initialize the application
  */
 document.addEventListener("DOMContentLoaded", () => {
+  populateRankDropdown()
   populateDropdowns()
-  subscribeToSelectionChanges() // Start listening for changes
+  subscribeToSelectionChanges()
+  handleAdminFormSubmission()
+  fetchScrollingMessage()
+  loadScrollingMessageIntoEditBox()
+
+  // Initialize scrolling message form submission and subscription
+  handleScrollingMessageFormSubmission()
+  subscribeToScrollingMessageChanges()
 })
 
 export {

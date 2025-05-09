@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="js/main.js" defer></script>
+    <script src="js/supabase.js" type="module" defer></script>
+  </head>
+  <body>
+    <!-- Navigation Bar -->
+    <nav class="topnav">
+      <div id="Clock" class="clock"></div>
+      <img src="img/logo.png" class="img-logo" alt="Logo" />
+      <div class="dropdown">
+        <img
+          src="img/menu.png"
+          class="img-menu dropdown-toggle"
+          id="dropdownMenuButton"
+          alt="Menu"
+        />
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="./index.html">Home</a>
+          <a class="dropdown-item" href="./admin.html">Admin</a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Admin Panel Wrapper -->
+    <main class="parent-wrapper">
+      <section class="admin-panel">
+        <h2 class="containerheader">Admin Panel</h2>
+        <p>
+          Welcome to the admin panel. Use the tools below to manage the system.
+        </p>
+
+        <!-- Admin Tools -->
+        <div class="admin-tools">
+          <button class="admin-button">Manage Members</button>
+          <button class="admin-button">View Logs</button>
+          <button class="admin-button">Settings</button>
+        </div>
+
+        <!-- Manage Scrolling Message Form -->
+        <section class="scrolling-message-section">
+          <h3>Manage Scrolling Message</h3>
+          <form id="scrolling-message-form">
+            <label for="message-content">Message Content:</label>
+            <textarea
+              id="message-content"
+              rows="3"
+              placeholder="Enter scrolling message"
+            ></textarea>
+            <button type="submit" class="admin-button">Update Message</button>
+          </form>
+          <div id="message-status"></div>
+        </section>
+      </section>
+    </main>
+
+    <!-- Scrolling Message -->
+    <div id="scrolling-message">
+      <marquee behavior="scroll" direction="left">Loading message...</marquee>
+    </div>
+  </body>
+</html>
